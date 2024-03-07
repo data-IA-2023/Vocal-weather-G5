@@ -1,0 +1,6 @@
+from b_speech_recognition import recognize_from_microphone
+from c_speech_translation import translate_from_microphone
+from d_speech_processing import get_weather_forecast
+
+résultat = get_weather_forecast()
+print(résultat)
