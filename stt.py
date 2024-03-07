@@ -1,43 +1,14 @@
 import os
-import azure.cognitiveservices.speech as speechsdk
 import requests
 import json
 from dotenv import dotenv_values, load_dotenv
 import spacy
+from speech_recognition import *
 
 nlp = spacy.load("fr_core_news_md")
 
 load_dotenv()
-
-# Environment files
 credentials = dotenv_values('envressources/keys.env')
-meteoapi = dotenv_values('')
-
-key = credentials['SPEECH_KEY']
-region = credentials['SPEECH_REGION']
-langue = credentials['AZURE_SPEECH_LANG']
-
-def recognize_from_microphone():
-    speech_config = speechsdk.SpeechConfig(subscription=key, region=region)
-    speech_config.speech_recognition_language=langue
-
-    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
-    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
-
-    print("PARLE : ")
-    speech_recognition_result = speech_recognizer.recognize_once_async().get()
-
-    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        print("Recognized: {}".format(speech_recognition_result.text))
-        return speech_recognition_result.text
-    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
-        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
-    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
-        cancellation_details = speech_recognition_result.cancellation_details
-        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
-        if cancellation_details.reason == speechsdk.CancellationReason.Error:
-            print("Error details: {}".format(cancellation_details.error_details))
-            print("Did you set the speech resource key and region values?")
 
 réponse = recognize_from_microphone()
 
@@ -51,7 +22,7 @@ def process_query(query):
 
 query = réponse
 city = None
-liste_activation = ["météo", "temps"]
+liste_activation = ["Météo", "temps"]
 
 # Vérifie si l'un des mots de la liste_activation est présent dans la phrase
 for word in liste_activation:
