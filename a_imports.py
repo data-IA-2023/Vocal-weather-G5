@@ -5,7 +5,7 @@ import json
 import spacy
 import azure.cognitiveservices.speech as speechsdk
 
-nlp = spacy.load("fr_core_news_md")
+nlp = spacy.load("en_core_web_md")
 
 load_dotenv()
 
