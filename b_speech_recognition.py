@@ -29,8 +29,8 @@ def recognize_from_microphone():
 
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
         # Si la reconnaissance est réussie, afficher le texte reconnu et la langue détectée
-        print("Phrase: {}".format(result.text))
-        print("Langue détectée: {}".format(detected_language))
+        print("PHRASE ENTENDUE : {}".format(result.text))
+        print("LANGUE DETECTEE : {}".format(detected_language))
         return result.text
     elif result.reason == speechsdk.ResultReason.NoMatch:
         # Si aucune correspondance n'est trouvée

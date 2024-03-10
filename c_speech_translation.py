@@ -13,7 +13,7 @@ def translate_from_microphone():
     payload = {
         "text": answer,  # Texte à traduire
         "from": "auto",  # Langue source automatiquement détectée
-        "to": "en"       # Traduction en anglais
+        "to": "fr"   # Traduction 
     }
     
     # En-têtes pour la requête HTTP
@@ -30,8 +30,9 @@ def translate_from_microphone():
     translation_result = response.json()
     
     # Récupération du texte traduit de la réponse
-    translated_text = translation_result.get('response', None)
+    translated_text = translation_result.get('response', answer)
     
     # Retourne le texte traduit
+    print(f"TEXTE TRADUIT = {translated_text}")
     return translated_text
 

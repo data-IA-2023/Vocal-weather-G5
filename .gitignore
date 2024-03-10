@@ -161,6 +161,10 @@ cython_debug/
 
 # Dossiers comme ça
 oldandexercices
+oldandtests
 
 # Dossiers contenant les enviros
 envressources
+
+# J'enregistre les fichiers json retournés pour des tests
+meteos
