@@ -1,38 +1,29 @@
 from a_imports import *
 from b_speech_recognition import recognize_from_microphone
 
-# Définition de la fonction pour traduire le texte provenant du microphone
 def translate_from_microphone():
-    # URL de l'API de traduction
-    url_translate = "https://translate281.p.rapidapi.com/"
-    
-    # Appel de la fonction pour reconnaître le texte à partir du microphone
+    url = "https://google-translate113.p.rapidapi.com/api/v1/translator/text"
     answer = recognize_from_microphone()
 
-    # Données à envoyer à l'API de traduction
     payload = {
-        "text": answer,  # Texte à traduire
-        "from": "auto",  # Langue source automatiquement détectée
-        "to": "fr"   # Traduction 
+        "from": "auto",
+        "to": "fr",
+        "text": answer
     }
-    
-    # En-têtes pour la requête HTTP
     headers = {
         "content-type": "application/x-www-form-urlencoded",
-        "X-RapidAPI-Key": credentials['TRANSLATE_API_KEY'],  # Clé d'API pour l'authentification
-        "X-RapidAPI-Host": "translate281.p.rapidapi.com"      # Hôte de l'API
+        "X-RapidAPI-Key": credentials['RAPIDAPIKEY'],
+        "X-RapidAPI-Host": "google-translate113.p.rapidapi.com"
     }
 
-    # Envoi de la requête POST à l'API de traduction
-    response = requests.post(url_translate, data=payload, headers=headers)
-
-    # Analyse de la réponse JSON
-    translation_result = response.json()
+    response = requests.post(url, data=payload, headers=headers)
     
-    # Récupération du texte traduit de la réponse
-    translated_text = translation_result.get('response', answer)
-    
-    # Retourne le texte traduit
-    print(f"TEXTE TRADUIT = {translated_text}")
-    return translated_text
-
+    if response.status_code == 200:
+        translation_result = response.json()
+        if "trans" in translation_result:
+            return translation_result["trans"]
+        else:
+            return "Erreur lors de la traduction."
+    else:
+        print("Défaillance générale du merdier")
+        return answer
