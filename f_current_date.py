@@ -12,5 +12,4 @@ def soustraire_dates(date_entree):
     difference = date_entree - date_actuelle
     
     # Afficher la différence en jours
-    return difference.days + 1
-
+    return difference.days + 2

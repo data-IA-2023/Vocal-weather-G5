@@ -1,7 +1,5 @@
 from a_imports import *
 
-city = None
-
 def process_query_and_transform_dates(query):
     doc = nlp(query)
     city_name = None
@@ -37,13 +35,14 @@ def process_query_and_transform_dates(query):
         return formatted_date
 
     def transformer_dates(chaine):
-        regex_date = re.compile(r'Le (\d{1,2})\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4}) à')
+        regex_date = re.compile(r'(\d{1,2})\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})')
         dates_trouvees = regex_date.findall(chaine)
-
+        
         if not dates_trouvees:
             return None
 
         chaine_formatee = regex_date.sub(format_date, chaine)
+        chaine_formatee = re.search(r'\d{4}-\d{2}-\d{2}', chaine_formatee).group()
         return chaine_formatee
 
-    return city_name, transformer_dates(query)
+    return city_name, transformer_dates(date_name)

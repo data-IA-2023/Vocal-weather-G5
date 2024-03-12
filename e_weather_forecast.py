@@ -7,7 +7,6 @@ query = translate_from_microphone()
 
 def get_weather_forecast():
     city, datev = process_query_and_transform_dates(query)
-    print(datev)
     days = "1"
     if not city:
         return {"message": "Je n'ai pas compris votre demande."}
@@ -18,7 +17,7 @@ def get_weather_forecast():
         if "après-demain" in query.lower():
             days = "3"
     else:
-        days = str(soustraire_dates(date))
+        days = str(soustraire_dates(datev))
 
     # URL de l'API pour les prévisions météorologiques
     url = "https://weatherapi-com.p.rapidapi.com/forecast.json"
