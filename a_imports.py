@@ -6,6 +6,7 @@ import spacy
 import azure.cognitiveservices.speech as speechsdk
 from datetime import datetime, date, timedelta
 from transformers import pipeline, AutoTokenizer, AutoModelForTokenClassification
+import re
 
 tokenizer = AutoTokenizer.from_pretrained("Jean-Baptiste/camembert-ner-with-dates")
 model = AutoModelForTokenClassification.from_pretrained("Jean-Baptiste/camembert-ner-with-dates")
