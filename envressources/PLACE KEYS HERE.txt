@@ -1,0 +1,12 @@
+Dans ce dossier il faut un fichier :
+
+    - "keys.env" qui contient :
+        SPEECH_KEY= {Clé API azure cognitive services STT}
+        SPEECH_REGION=francecentral
+        RAPIDAPIKEY= {Clé du site "RAPIDAPI" avec abonnements aux apis (voir readme)}
+    
+    - "SQLkeys.env" qui contient : les id de votre BDD
+        SERVER=
+        DATABASE=
+        USERNAME=
+        PASSWORD=      

@@ -7,6 +7,7 @@ import azure.cognitiveservices.speech as speechsdk
 from datetime import datetime, date, timedelta
 from transformers import pipeline, AutoTokenizer, AutoModelForTokenClassification
 import re
+import pyodbc
 
 tokenizer = AutoTokenizer.from_pretrained("Jean-Baptiste/camembert-ner-with-dates")
 model = AutoModelForTokenClassification.from_pretrained("Jean-Baptiste/camembert-ner-with-dates")
@@ -15,6 +16,7 @@ nlp = pipeline('ner', model=model, tokenizer=tokenizer, aggregation_strategy="si
 load_dotenv()
 
 credentials = dotenv_values('envressources/keys.env')
+sqlvals = dotenv_values('envressources/SQLkeys.env')
 
 currentime = datetime.now().strftime("%H_%M_%S")
 

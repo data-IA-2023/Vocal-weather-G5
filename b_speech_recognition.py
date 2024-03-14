@@ -31,7 +31,7 @@ def recognize_from_microphone():
         # Si la reconnaissance est réussie, afficher le texte reconnu et la langue détectée
         print("PHRASE ENTENDUE : {}".format(result.text))
         print("LANGUE DETECTEE : {}".format(detected_language))
-        return result.text
+        return result.text 
     elif result.reason == speechsdk.ResultReason.NoMatch:
         # Si aucune correspondance n'est trouvée
         print("Non reconnu: {}".format(result.no_match_details))
@@ -43,3 +43,5 @@ def recognize_from_microphone():
             # En cas d'erreur
             print("Détails de l'erreur: {}".format(cancellation_details.error_details))
             print("Vérifiez la clé ou la région")
+
+answer = recognize_from_microphone()

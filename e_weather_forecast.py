@@ -1,27 +1,27 @@
 from a_imports import *
-from c_speech_translation import translate_from_microphone
-from d_speech_processing import process_query_and_transform_dates
+from c_speech_translation import answertranslated
+from d_speech_processing import ville, datev
 from f_current_date import soustraire_dates
 
-query = translate_from_microphone()
 
 def get_weather_forecast():
-    city, datev = process_query_and_transform_dates(query)
     days = "1"
-    if not city:
+    if not ville:
         return {"message": "Je n'ai pas compris votre demande."}
     
     if datev is None:
-        if "demain" in query.lower():
+        if "demain" in answertranslated.lower():
             days = "2"
-        if "après-demain" in query.lower():
+        if "après demain" in answertranslated.lower():
+            days = "3"
+        if "après-demain" in answertranslated.lower():
             days = "3"
     else:
         days = str(soustraire_dates(datev))
 
     # URL de l'API pour les prévisions météorologiques
     url = "https://weatherapi-com.p.rapidapi.com/forecast.json"
-    querystring = {"q": city, "days": days}
+    querystring = {"q": ville, "days": days}
     print(days)
     headers = { 
         "X-RapidAPI-Key": credentials['RAPIDAPIKEY'],  # Clé d'API pour l'authentification
@@ -29,17 +29,15 @@ def get_weather_forecast():
     }
     # Envoi de la requête GET à l'API de prévisions météorologiques
     response = requests.get(url, headers=headers, params=querystring)
-    save_json(response.json(), f"meteos/{currentime}_{city}.json")
+    httpstatus = int(response.status_code)
+
+    save_json(response.json(), f"meteos/{currentime}_{ville}.json")
     if "current" in response.json():
         current_data = response.json()["current"]
-        if "temp_c" in current_data and "last_updated" in current_data:
-            print("Température en Celsius: ", current_data["temp_c"])
-            print("Date précise du relevé météo:", current_data["last_updated"])
-    if "location" in response.json():
-        location_data = response.json()["location"]
-        if "name" in location_data and "lat" in location_data and "lon" in location_data:
-            print("Ville : ", location_data["name"])
-            print("Latitude : ", location_data["lat"])
-            print("Longitude : ", location_data["lon"])
+        if "last_updated" in current_data:
+            print("ok")
+            return current_data["last_updated"], httpstatus
     else:
         print("Les données actuelles ne sont pas disponibles.")
+
+météo, météo_status = get_weather_forecast()
