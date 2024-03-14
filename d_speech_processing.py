@@ -1,4 +1,5 @@
 from a_imports import *
+from c_speech_translation import answertranslated
 
 def process_query_and_transform_dates(query):
     doc = nlp(query)
@@ -7,8 +8,10 @@ def process_query_and_transform_dates(query):
     for entity in doc:
         if entity.get("entity_group") == "LOC":
             city_name = entity.get("word").capitalize()
+            city_score = entity.get("score")
         if entity.get("entity_group") == "DATE":
             date_name = entity.get("word").capitalize()
+            date_score = entity.get("score")
 
     def format_date(match):
         jour = match.group(1)
@@ -36,6 +39,7 @@ def process_query_and_transform_dates(query):
 
     def transformer_dates(chaine):
         regex_date = re.compile(r'(\d{1,2})\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})')
+        if chaine==None:return None
         dates_trouvees = regex_date.findall(chaine)
         
         if not dates_trouvees:
@@ -45,4 +49,6 @@ def process_query_and_transform_dates(query):
         chaine_formatee = re.search(r'\d{4}-\d{2}-\d{2}', chaine_formatee).group()
         return chaine_formatee
 
-    return city_name, transformer_dates(date_name)
+    return city_name, transformer_dates(date_name), city_score, date_score
+
+ville, datev, ville_score, datev_score = process_query_and_transform_dates(answertranslated)

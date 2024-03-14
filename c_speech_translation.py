@@ -1,9 +1,8 @@
 from a_imports import *
-from b_speech_recognition import recognize_from_microphone
+from b_speech_recognition import answer
 
 def translate_from_microphone():
     url = "https://google-translate113.p.rapidapi.com/api/v1/translator/text"
-    answer = recognize_from_microphone()
 
     payload = {
         "from": "auto",
@@ -17,13 +16,16 @@ def translate_from_microphone():
     }
 
     response = requests.post(url, data=payload, headers=headers)
+    httpstatus = int(response.status_code)
     
     if response.status_code == 200:
         translation_result = response.json()
         if "trans" in translation_result:
-            return translation_result["trans"]
+            return translation_result["trans"], httpstatus
         else:
-            return "Erreur lors de la traduction."
+            return "Erreur lors de la traduction.", httpstatus
     else:
         print("Défaillance générale du merdier")
-        return answer
+        return answer, httpstatus
+    
+answertranslated, status_translate = translate_from_microphone()
