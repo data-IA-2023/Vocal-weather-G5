@@ -17,9 +17,6 @@ load_dotenv()
 credentials = dotenv_values('envressources/keys.env')
 
 currentime = datetime.now().strftime("%H_%M_%S")
-currentdate = date.today()
-
-#datemodif = date.today() + timedelta(days=20)
 
 liste_activation = ["température", "temps", "météo", "Température", "Temps", "Météo", "comment", "Comment", "Combien", "combien"]
 
