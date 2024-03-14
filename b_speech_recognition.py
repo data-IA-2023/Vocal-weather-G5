@@ -1,8 +1,5 @@
 from a_imports import *
 
-key = credentials['SPEECH_KEY']
-region = credentials['SPEECH_REGION']
-
 def recognize_from_microphone():
     # Configuration de la reconnaissance vocale avec la clé d'abonnement et la région spécifiées
     speech_config = speechsdk.SpeechConfig(subscription=key, region=region)
@@ -28,9 +25,6 @@ def recognize_from_microphone():
     detected_language = auto_detect_source_language_result.language
 
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        # Si la reconnaissance est réussie, afficher le texte reconnu et la langue détectée
-        print("PHRASE ENTENDUE : {}".format(result.text))
-        print("LANGUE DETECTEE : {}".format(detected_language))
         return result.text 
     elif result.reason == speechsdk.ResultReason.NoMatch:
         # Si aucune correspondance n'est trouvée

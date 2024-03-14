@@ -13,3 +13,10 @@ def soustraire_dates(date_entree):
     
     # Afficher la différence en jours
     return difference.days + 2
+
+
+def add_days_to_date(date_str, days):
+    date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+    new_date = date_obj + timedelta(days=days)
+    new_date_str = new_date.strftime("%Y-%m-%d")
+    return new_date_str
