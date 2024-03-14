@@ -14,6 +14,8 @@ def get_weather_forecast():
             days = "2"
         if "après demain" in answertranslated.lower():
             days = "3"
+        if "après-demain" in answertranslated.lower():
+            days = "3"
     else:
         days = str(soustraire_dates(datev))
 

@@ -5,6 +5,7 @@ def process_query_and_transform_dates(query):
     doc = nlp(query)
     city_name = None
     date_name = None
+    date_score = 0
     for entity in doc:
         if entity.get("entity_group") == "LOC":
             city_name = entity.get("word").capitalize()
@@ -36,7 +37,7 @@ def process_query_and_transform_dates(query):
         mois_num = mois_dict[mois.lower()]
         formatted_date = f"{annee}-{mois_num}-{jour}"
         return formatted_date
-
+    
     def transformer_dates(chaine):
         regex_date = re.compile(r'(\d{1,2})\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})')
         if chaine==None:return None
